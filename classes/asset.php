@@ -33,7 +33,7 @@ class Asset extends \Fuel\Core\Asset {
 		
 		foreach($stylesheets as &$lessfile)
 		{
-			$plain_less		= APPPATH.\Config::get('less.path').$lessfile; // Name of source filename
+			$plain_less	= APPPATH.\Config::get('less.path').$lessfile; // Name of source filename
 			$compiled_css	= DOCROOT.reset(\Config::get('asset.paths')).\Config::get('asset.css_dir').pathinfo($lessfile, PATHINFO_FILENAME).'.css'; // Name of destination CSS compiled file
 			
 			if(!is_file($plain_less))
