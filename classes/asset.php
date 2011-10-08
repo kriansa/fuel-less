@@ -24,24 +24,42 @@ class Asset extends \Fuel\Core\Asset {
 	
 	public static function less($stylesheets = array(), $attr = array(), $group = NULL, $raw = false)
 	{
-		require_once PKGPATH.'less'.DS.'vendor'.DS.'lessphp'.DS.'lessc.inc.php';
-		
 		if(!is_array($stylesheets))
 		{
 			$stylesheets = array($stylesheets);
 		}
 		
+		// Get all the asset CSS paths (for a better @include integration)
+		$include_paths = \Config::get('asset.paths');
+		foreach($include_paths as &$path)
+		{
+			$path = DOCROOT.$path.\Config::get('asset.css_dir');
+		}
+		$include_paths[] = APPPATH.\Config::get('less.path');
+		
 		foreach($stylesheets as &$lessfile)
 		{
 			$source_less	= APPPATH.\Config::get('less.path').$lessfile; // Name of source filename
-			$compiled_css	= DOCROOT.\Arr::get(\Config::get('asset.paths'), 0).\Config::get('asset.css_dir').pathinfo($lessfile, PATHINFO_FILENAME).'.css'; // Name of destination CSS compiled file
+			$compiled_css	= DOCROOT.\Arr::get(\Config::get('asset.paths'), \Config::get('less.default_path_key')).\Config::get('asset.css_dir').pathinfo($lessfile, PATHINFO_FILENAME).'.css'; // Name of destination CSS compiled file
 			
 			if(!is_file($source_less))
 			{
 				throw new \Fuel_Exception('Could not find lesscss source file: '.$source_less);
 			}
 			
-			\lessc::ccompile($source_less, $compiled_css);
+			// Compile only if source is newer than compiled file
+			if (!is_file($compiled_css) || filemtime($source_less) > filemtime($compiled_css))
+			{
+				// I found this ugly way, but seems to be a little faster
+				// than including it on every call to Asset::less when
+				// the files are already compiled
+				require_once PKGPATH.'less'.DS.'vendor'.DS.'lessphp'.DS.'lessc.inc.php';
+				
+				$handle = new \lessc($source_less);
+				$handle->importDir = $include_paths;
+				$handle->indentChar = '	'; // Tab instead 2 spaces
+				file_put_contents($compiled_css, $handle->parse());
+			}
 			
 			// Change the name to load as CSS asset
 			$lessfile = str_replace(pathinfo($lessfile, PATHINFO_EXTENSION), '', $lessfile).'css';
