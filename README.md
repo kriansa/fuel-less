@@ -1,6 +1,8 @@
 # lesscss package
 
-This is a lesscss package using its php implementation (lessphp by leafo).
+This is a simple LESS package using its PHP implementation (lessphp by @leafo).
+
+LESS extends CSS with dynamic behavior such as variables, mixins, operations and functions.
 
 More about lesscss: http://lesscss.org/
 
@@ -12,7 +14,7 @@ Download or clone from Github. Put it on 'less' (NOT lessfuel) dir in the packag
 
 	git clone --recursive git@github.com:kriansa/lessfuel.git
 
-Package made for Fuel 1.0, but i guess it should work fine with 1.1
+Works with Fuel 1.0 and 1.1
 
 ## Usage
 
@@ -26,10 +28,12 @@ Asset::less(array('style.less', 'file1.less', 'admin/style.less'));
 
 ## Config
 
-Currently there's just the path to source less files to config, just open PKGPATH/less/config/less.php and change it as you wish.
+Copy `PKGPATH/less/config/less.php` to your `APP/config/less.php` and change it as you need.
 
 ## Updating lessphp
 
-lessphp is a submodule so you can update it.
+As lessphp is a submodule, update it simply doing
+
+	git pull --recurse-submodules
 
 Have fun!
