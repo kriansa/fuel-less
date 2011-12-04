@@ -40,7 +40,9 @@ class Asset extends \Fuel\Core\Asset {
 		
 		foreach ($stylesheets as &$lessfile) {
 			$source_less = APPPATH . \Config::get('less.path') . $lessfile;
-			$compiled_css = DOCROOT . \Arr::get(\Config::get('asset.paths'), \Config::get('less.default_path_key')) . \Config::get('asset.css_dir') . pathinfo($lessfile, PATHINFO_FILENAME) . '.css';
+			$compile_path = DOCROOT . \Arr::element(\Config::get('asset.paths'), \Config::get('less.default_path_key')) . \Config::get('asset.css_dir');
+			$css_name = pathinfo($lessfile, PATHINFO_FILENAME).'.css';
+			$compiled_css = $compile_path . $css_name;
 			
 			if (!is_file($source_less)) {
 				throw new \Fuel_Exception('Could not find lesscss source file: ' . $source_less);
@@ -53,7 +55,8 @@ class Asset extends \Fuel\Core\Asset {
 				$handle = new \lessc($source_less);
 				$handle->importDir = $include_paths;
 				$handle->indentChar = '	'; // Tab instead 2 spaces
-				file_put_contents($compiled_css, $handle->parse());
+				
+				\File::create($compile_path, $css_name, $handle->parse());
 			}
 			
 			// Change the name to load as CSS asset
