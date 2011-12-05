@@ -56,7 +56,7 @@ class Asset extends \Fuel\Core\Asset {
 				$handle->importDir = $include_paths;
 				$handle->indentChar = '	'; // Tab instead 2 spaces
 				
-				\File::create($compile_path, $css_name, $handle->parse());
+				\File::update($compile_path, $css_name, $handle->parse());
 			}
 			
 			// Change the name to load as CSS asset
