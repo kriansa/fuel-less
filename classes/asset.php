@@ -39,11 +39,11 @@ class Asset extends \Fuel\Core\Asset
 			$path = DOCROOT.$path.\Config::get('asset.css_dir');
 		}
 
-		$include_paths[] = APPPATH.\Config::get('less.path');
+		$include_paths[] = \Config::get('less.path');
 		
 		foreach($stylesheets as &$lessfile)
 		{
-			$source_less  = APPPATH.\Config::get('less.path').$lessfile;
+			$source_less  = \Config::get('less.path').$lessfile;
 			$compile_path = DOCROOT.\Arr::get(\Config::get('asset.paths'), \Config::get('less.default_path_key')).\Config::get('asset.css_dir');
 			$css_name     = pathinfo($lessfile, PATHINFO_FILENAME).'.css';
 			$compiled_css = $compile_path.$css_name;

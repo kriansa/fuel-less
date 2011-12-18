@@ -28,7 +28,7 @@ return array(
 	 *
 	 * Default: 'less/'
 	 */
-	'path' => 'less/',
+	'path' => APPPATH.'less/',
 	
 	/**
 	 * As the asset config is a array with multiple paths, you must tell
