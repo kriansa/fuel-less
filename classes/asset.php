@@ -14,7 +14,8 @@
 
 namespace Less;
 
-class Asset extends \Fuel\Core\Asset {
+class Asset extends \Fuel\Core\Asset
+{
 
 	public static function _init()
 	{
@@ -25,32 +26,37 @@ class Asset extends \Fuel\Core\Asset {
 	
 	public static function less($stylesheets = array(), $attr = array(), $group = NULL, $raw = false)
 	{
-		if (!is_array($stylesheets)) {
+		if ( ! is_array($stylesheets))
+		{
 			$stylesheets = array($stylesheets);
 		}
 		
 		// Get all the asset CSS paths (for a better @include integration)
 		$include_paths = \Config::get('asset.paths');
 
-		foreach ($include_paths as &$path) {
-			$path = DOCROOT . $path . \Config::get('asset.css_dir');
+		foreach($include_paths as &$path)
+		{
+			$path = DOCROOT.$path.\Config::get('asset.css_dir');
 		}
 
-		$include_paths[] = APPPATH . \Config::get('less.path');
+		$include_paths[] = APPPATH.\Config::get('less.path');
 		
-		foreach ($stylesheets as &$lessfile) {
-			$source_less = APPPATH . \Config::get('less.path') . $lessfile;
-			$compile_path = DOCROOT . \Arr::get(\Config::get('asset.paths'), \Config::get('less.default_path_key')) . \Config::get('asset.css_dir');
-			$css_name = pathinfo($lessfile, PATHINFO_FILENAME).'.css';
-			$compiled_css = $compile_path . $css_name;
+		foreach($stylesheets as &$lessfile)
+		{
+			$source_less  = APPPATH.\Config::get('less.path').$lessfile;
+			$compile_path = DOCROOT.\Arr::get(\Config::get('asset.paths'), \Config::get('less.default_path_key')).\Config::get('asset.css_dir');
+			$css_name     = pathinfo($lessfile, PATHINFO_FILENAME).'.css';
+			$compiled_css = $compile_path.$css_name;
 			
-			if (!is_file($source_less)) {
-				throw new \Fuel_Exception('Could not find lesscss source file: ' . $source_less);
+			if ( ! is_file($source_less))
+			{
+				throw new \Fuel_Exception('Could not find lesscss source file: '.$source_less);
 			}
 			
 			// Compile only if source is newer than compiled file
-			if (!is_file($compiled_css) || filemtime($source_less) > filemtime($compiled_css)) {
-				require_once PKGPATH . 'less' . DS . 'vendor' . DS . 'lessphp' . DS . 'lessc.inc.php';
+			if ( ! is_file($compiled_css) || filemtime($source_less) > filemtime($compiled_css))
+			{
+				require_once PKGPATH.'less'.DS.'vendor'.DS.'lessphp'.DS.'lessc.inc.php';
 				
 				$handle = new \lessc($source_less);
 				$handle->importDir = $include_paths;
@@ -60,9 +66,10 @@ class Asset extends \Fuel\Core\Asset {
 			}
 			
 			// Change the name to load as CSS asset
-			$lessfile = str_replace(pathinfo($lessfile, PATHINFO_EXTENSION), '', $lessfile) . 'css';
+			$lessfile = str_replace(pathinfo($lessfile, PATHINFO_EXTENSION), '', $lessfile).'css';
 		}
 		
 		return static::css($stylesheets, $attr, $group, $raw);
 	}
+	
 }
