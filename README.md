@@ -10,9 +10,9 @@ More about lessphp: http://leafo.net/lessphp
 
 ## Installing
 
-Download or clone from Github. Put it on 'less' (NOT lessfuel) dir in the packages dir and add to your app/config/config.php.
+Download or clone from Github. Put it on 'packages/less' dir in and add to your app/config/config.php.
 
-	git clone --recursive git@github.com:kriansa/lessfuel.git
+	git clone --recursive git@github.com:kriansa/fuel-less.git
 
 Works with Fuel 1.0 and 1.1
 
