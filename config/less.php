@@ -1,13 +1,13 @@
 <?php
 /**
- * Fuel is a fast, lightweight, community driven PHP5 framework.
+ * FuelPHP LessCSS package implementation. This namespace controls all Google
+ * package functionality, including multiple sub-namespaces for the various
+ * tools.
  *
- * @package    Fuel
+ * @author     Kriansa
  * @version    1.0
- * @author     Fuel Development Team
- * @license    MIT License
- * @copyright  2010 - 2011 Fuel Development Team
- * @link       http://fuelphp.com
+ * @package    Fuel
+ * @subpackage Less
  */
 
 /**
@@ -22,20 +22,22 @@
 return array(
 
 	/**
-	 * An array of paths that will be searched for lesscss assets. Each asset
-	 * is a RELATIVE path from the APPPATH WITH a trailing slash:
-	 * It's recommended to keep them out of public access
+	 * An array of paths that will be searched for lesscss assets.
+	 * You should probably keep them out of public access
+	 * This MUST include the trailing slash ('/')
 	 *
-	 * Default: 'less/'
+	 * Default: APPPATH.'vendor/less/'
 	 */
-	'path' => APPPATH.'less/',
+	'less_source_dir' => APPPATH.'vendor/less/',
 	
 	/**
 	 * As the asset config is a array with multiple paths, you must tell
 	 * what is the default path where the compiled less files will be
 	 * The value means the key of asset.paths that will be used
+	 * 
+	 * This MUST include the trailing slash ('/')
 	 *
-	 * Default: 0
+	 * Default: Config::get('asset.paths.0').Config::get('asset.css_dir'),
 	 */
-	'default_path_key' => 0,
+	'less_output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
 );
