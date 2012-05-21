@@ -50,7 +50,7 @@ class Asset_Instance extends \Fuel\Core\Asset_Instance
 			
 			if( ! is_file($source_less))
 			{
-				throw new \Fuel_Exception('Could not find less source file: '.$source_less);
+				throw new \Exception('Could not find less source file: '.$source_less);
 			}
 			
 			// Change the name for loading with Asset::css
