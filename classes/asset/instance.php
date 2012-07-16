@@ -26,6 +26,7 @@ namespace Less;
 
 class Asset_Instance extends \Fuel\Core\Asset_Instance
 {
+	
 	/**
 	 * Less
 	 *
@@ -39,40 +40,9 @@ class Asset_Instance extends \Fuel\Core\Asset_Instance
 	 */
 	public function less($stylesheets = array(), $attr = array(), $group = null, $raw = false)
 	{
-		if ( ! is_array($stylesheets))
-		{
-			$stylesheets = array($stylesheets);
-		}
-		
-		foreach($stylesheets as &$lessfile)
-		{
-			$source_less  = \Config::get('asset.less_source_dir').$lessfile;
-			
-			if( ! is_file($source_less))
-			{
-				throw new \Exception('Could not find less source file: '.$source_less);
-			}
-			
-			// Change the name for loading with Asset::css
-			$lessfile = str_replace('.'.pathinfo($lessfile, PATHINFO_EXTENSION), '', $lessfile).'.css';
-			
-			// Full path to css compiled file
-			$compiled_css = \Config::get('asset.less_output_dir').$lessfile;
-			
-			// Compile only if source is newer than compiled file
-			if ( ! is_file($compiled_css) or filemtime($source_less) > filemtime($compiled_css))
-			{
-				require_once PKGPATH.'less'.DS.'vendor'.DS.'lessphp'.DS.'lessc.inc.php';
-				
-				$handle = new \lessc($source_less);
-				$handle->indentChar = \Config::get('asset.indent_with');
-				
-				$compile_path = dirname($compiled_css);
-				$css_name     = pathinfo($compiled_css, PATHINFO_BASENAME);
-				\File::update($compile_path, $css_name, $handle->parse());
-			}
-		}
+		\Less::compile($stylesheets);
 		
 		return static::css($stylesheets, $attr, $group, $raw);
 	}
+	
 }

@@ -26,13 +26,6 @@ namespace Less;
 
 class Asset extends \Fuel\Core\Asset
 {
-
-	public static function _init()
-	{
-		parent::_init();
-		
-		\Config::load('less', 'asset');
-	}
 	
 	/**
 	 * Less

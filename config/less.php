@@ -28,7 +28,7 @@ return array(
 	 *
 	 * Default: APPPATH.'vendor/less/'
 	 */
-	'less_source_dir' => APPPATH.'vendor/less/',
+	'source_dir' => APPPATH.'vendor/less/',
 	
 	/**
 	 * As the asset config is a array with multiple paths, you must tell
@@ -39,5 +39,13 @@ return array(
 	 *
 	 * Default: Config::get('asset.paths.0').Config::get('asset.css_dir'),
 	 */
-	'less_output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
+	'output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
+
+	/**
+	 * Whether or not to keep the directory that the file is in or just
+	 * store in the main output_dir.
+	 *
+	 * Default: false
+	 */
+	'keep_dir' => false,
 );
