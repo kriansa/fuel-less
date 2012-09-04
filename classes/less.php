@@ -32,6 +32,7 @@ class Less
 	 */
 	public static function _init()
 	{
+		\Config::load('asset', true);
 		\Config::load('less', true);
 	}
 	
