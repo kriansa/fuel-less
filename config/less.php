@@ -45,7 +45,7 @@ return array(
 	 * Whether or not to keep the directory that the file is in or just
 	 * store in the main output_dir.
 	 *
-	 * Default: false
+	 * Default: true
 	 */
-	'keep_dir' => false,
+	'keep_dir' => true,
 );
