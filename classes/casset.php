@@ -39,6 +39,8 @@ class Casset extends \Casset\Casset
 	 */
 	public static function less($sheet, $sheet_min = false, $group = 'global')
 	{
+		$sheet = (array) $sheet;
+
 		\Less::compile($sheet);
 
 		foreach ($sheet as $sheet_file) {
