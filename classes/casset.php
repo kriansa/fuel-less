@@ -30,19 +30,24 @@ class Casset extends \Casset\Casset
 	/**
 	 * Less
 	 *
-	 * Compile a Less file and load it as a CSS asset.
+	 * Compile a less file and add css asset.
 	 *
-	 * @access	public
-	 * @param	mixed	       The file name, or an array files.
-	 * @param	array	       An array of extra attributes
-	 * @param	string	       The asset group name
-	 * @return	string|object  Rendered asset or current instance when adding to group
+	 * @param string $sheet The script to add
+	 * @param string $sheet_min If given, will be used when $min = true
+	 *        If omitted, $script will be minified internally
+	 * @param string $group The group to add this asset to. Defaults to 'global'
 	 */
-	public static function less($stylesheets = array(), $attr = array(), $group = null, $raw = false)
+	public static function less($sheet, $sheet_min = false, $group = 'global')
 	{
-		\Less::compile($stylesheets);
-		
-		return static::css($stylesheets, $attr, $group, $raw);
+		\Less::compile($sheet);
+
+		foreach ($sheet as $sheet_file) {
+			if (!\Config::get('less.keep_dir', true)) {
+				$sheet_file = pathinfo($sheet_file, PATHINFO_FILENAME) . '.css';
+			}
+
+			static::css($sheet_file, $sheet_min, $group);
+		}
 	}
 	
 }

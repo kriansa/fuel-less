@@ -77,7 +77,7 @@ class Less
 				$handle = new \lessc($source_less);
 				$handle->indentChar = \Config::get('asset.indent_with');
 				
-				$compile_path = (\Config::get('less.keep_dir', false)) ? dirname($compiled_css) : $output_dir;
+				$compile_path = (\Config::get('less.keep_dir', true)) ? dirname($compiled_css) : $output_dir;
 				$css_name     = pathinfo($compiled_css, PATHINFO_BASENAME);
 				
 				\File::update($compile_path, $css_name, $handle->parse());
