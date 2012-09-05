@@ -66,8 +66,13 @@ class Less
 
 			$output_dir = \Config::get('less.output_dir');
 			
-			// Full path to css compiled file
-			$compiled_css = $output_dir.$lessfile;
+			if (\Config::get('less.keep_dir', true)) {
+				// Full path to css compiled file
+				$compiled_css = $output_dir.$lessfile;
+			} else {
+				// Use file name of less as css in output dir.
+				$compiled_css = $output_dir.pathinfo($lessfile, PATHINFO_FILENAME).'.css';
+			}
 			
 			// Compile only if source is newer than compiled file
 			if ( ! is_file($compiled_css) or filemtime($source_less) > filemtime($compiled_css))
@@ -77,9 +82,9 @@ class Less
 				$handle = new \lessc($source_less);
 				$handle->indentChar = \Config::get('asset.indent_with');
 				
-				$compile_path = (\Config::get('less.keep_dir', true)) ? dirname($compiled_css) : $output_dir;
+				$compile_path = dirname($compiled_css);
 				$css_name     = pathinfo($compiled_css, PATHINFO_BASENAME);
-				
+
 				\File::update($compile_path, $css_name, $handle->parse());
 			}
 		}
