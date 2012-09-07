@@ -26,8 +26,9 @@
 Autoloader::add_core_namespace('Less');
 
 Autoloader::add_classes(array(
-	'Less\\Less'              => __DIR__.'/classes/less.php',
-	'Less\\Asset'             => __DIR__.'/classes/asset.php',
-	'Less\\Asset_Instance'    => __DIR__.'/classes/asset/instance.php',
-	'Less\\Casset'            => __DIR__.'/classes/casset.php',
+	'Less\\Less'           => __DIR__.'/classes/less.php',
+	'Less\\LessException'  => __DIR__.'/classes/less.php',
+	'Less\\Asset'          => __DIR__.'/classes/asset.php',
+	'Less\\Asset_Instance' => __DIR__.'/classes/asset/instance.php',
+	'Less\\Casset'         => __DIR__.'/classes/casset.php',
 ));
