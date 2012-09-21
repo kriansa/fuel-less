@@ -1,6 +1,6 @@
-# Fuel LessCSS package
+# Fuel LessCSS Compiler
 
-This is a simple LESS package using its PHP implementation (lessphp by @leafo).
+This is a LESS compiler package for Fuel Framework, using lessphp by @leafo or nodejs.
 
 LESS extends CSS with dynamic behavior such as variables, mixins, operations and functions.
 
@@ -8,13 +8,18 @@ More about *lesscss*: **http://lesscss.org/**
 
 More about *lessphp*: **http://leafo.net/lessphp**
 
+## New in 2.0
+
+* Search modifications recursively in your less includes
+* Compile your less with LessPHP implementation or the nodejs+node official one
+
 ## Installing
 
 Clone from Github. Put it on `'packages_dir/less'` dir in and add to your app/config/config.php.
 
 	git clone --recursive git://github.com/kriansa/fuel-less.git
 
-Works with Fuel 1.1
+Works with Fuel 1.1+
 
 ## Usage
 
@@ -37,9 +42,9 @@ Config::set('asset.less_source_dir', APPPATH.'less/admin');
 Asset::forge('custom', array('less_source_dir' => APPPATH.'less/admin'));
 ```
 
-## Updating lessphp
+## Updating submodules
 
-As lessphp is a submodule, update it simply doing
+In case you want to update the submodules (lessphp and lessjs)
 
 	git pull --recurse-submodules
 

@@ -1,11 +1,9 @@
 <?php
 /**
- * FuelPHP LessCSS package implementation. This namespace controls all Google
- * package functionality, including multiple sub-namespaces for the various
- * tools.
+ * FuelPHP LessCSS package implementation.
  *
  * @author     Kriansa
- * @version    1.0
+ * @version    2.0
  * @package    Fuel
  * @subpackage Less
  */
@@ -37,7 +35,13 @@ return array(
 	 * 
 	 * This MUST include the trailing slash ('/')
 	 *
-	 * Default: Config::get('asset.paths.0').Config::get('asset.css_dir'),
+	 * Default: DOCROOT.Config::get('asset.paths.0').Config::get('asset.css_dir'),
 	 */
-	'less_output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
+	'less_output_dir' => DOCROOT.Config::get('asset.paths.0').Config::get('asset.css_dir'),
+
+	/**
+	 * Class to compile less files
+	 * You can create your own driver if you want
+	 */
+	'less_compiler' => 'Less\\Compiler_Node'
 );
