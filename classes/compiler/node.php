@@ -77,14 +77,14 @@ class Compiler_Node
 			if ($errors)
 			{
 				$json = json_decode(trim($errors));
-                if (isset($json->message, $json->filename, $json->line))
-                {
-                    throw new \ErrorException($json->message, 0, E_ERROR, $json->filename, $json->line);
-                }
-                else
-                {
-                    throw new \Exception('Error while trying to compile with nodejs: ' . $errors);
-                }
+				if (isset($json->message, $json->filename, $json->line))
+				{
+					throw new \ErrorException($json->message, 0, E_ERROR, $json->filename, $json->line);
+				}
+				else
+				{
+					throw new \Exception('Error while trying to compile with nodejs: ' . $errors);
+				}
 			}
 
 			$destination = pathinfo($destination);
