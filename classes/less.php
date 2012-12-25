@@ -52,7 +52,7 @@ class Less
 			$stylesheets = array($stylesheets);
 		}
 		
-		foreach($stylesheets as &$lessfile)
+		foreach ($stylesheets as &$lessfile)
 		{
 			$source_less  = \Config::get('less.source_dir').$lessfile;
 			
@@ -81,13 +81,17 @@ class Less
 				
 				$handle = new \lessc($source_less);
 				$handle->indentChar = \Config::get('asset.indent_with');
-				
+
 				$handle->setVariables(array(
 					'asset_path' => \Config::get('asset.paths.0'),
 				));
 				
 				$compile_path = dirname($compiled_css);
 				$css_name     = pathinfo($compiled_css, PATHINFO_BASENAME);
+
+				if (!is_dir($compile_path)) {
+					mkdir($compile_path, \Config::get('file.chmod.folders', 0777), true);
+				}
 
 				\File::update($compile_path, $css_name, $handle->parse());
 			}
