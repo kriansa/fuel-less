@@ -64,15 +64,10 @@ class Less
 			// Change the name for loading with Asset::css
 			$lessfile = str_replace('.'.pathinfo($lessfile, PATHINFO_EXTENSION), '', $lessfile).'.css';
 
-			$output_dir = \Config::get('less.output_dir');
+			$output_dir = \Config::get('less.output_dir');	
 			
-			if (\Config::get('less.keep_dir', true)) {
-				// Full path to css compiled file
-				$compiled_css = $output_dir.$lessfile;
-			} else {
-				// Use file name of less as css in output dir.
-				$compiled_css = $output_dir.pathinfo($lessfile, PATHINFO_FILENAME).'.css';
-			}
+			// Full path to css compiled file
+			$compiled_css = $output_dir.$lessfile;
 			
 			// Compile only if source is newer than compiled file
 			if ( ! is_file($compiled_css) or filemtime($source_less) > filemtime($compiled_css))

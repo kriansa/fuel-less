@@ -39,15 +39,9 @@ class Casset extends \Casset\Casset
 	 */
 	public static function less($sheet, $sheet_min = false, $group = 'global')
 	{
-		$sheet = (array) $sheet;
+		$sheets = \Less::compile((array) $sheet);
 
-		\Less::compile($sheet);
-
-		foreach ($sheet as $sheet_file) {
-			if (!\Config::get('less.keep_dir', true)) {
-				$sheet_file = pathinfo($sheet_file, PATHINFO_FILENAME) . '.css';
-			}
-
+		foreach ($sheets as $sheet_file) {
 			static::css($sheet_file, $sheet_min, $group);
 		}
 	}
