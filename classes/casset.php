@@ -42,6 +42,12 @@ class Casset extends \Casset\Casset
 		$sheets = \Less::compile((array) $sheet);
 
 		foreach ($sheets as $sheet_file) {
+			$path_key = \Config::get('less.casset_path_key', false);
+			
+			if ($path_key) {
+				$sheet_file = $path_key . '::' . $sheet_file;
+			}
+			
 			static::css($sheet_file, $sheet_min, $group);
 		}
 	}

@@ -40,4 +40,9 @@ return array(
 	 * Default: Config::get('asset.paths.0').Config::get('asset.css_dir'),
 	 */
 	'output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
+	
+	/**
+	 * Default path key for assets if using Casset.
+	 */
+	'casset_path_key' => false,
 );
