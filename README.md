@@ -10,6 +10,10 @@ More about *lessphp*: **http://leafo.net/lessphp**
 
 ## Installing
 
+Simply add the following to your composer.json require block:
+
+	'leafo/lessphp'
+
 Clone from Github. Put it on `'packages_dir/less'` dir in and add to your app/config/config.php.
 
 	git clone --recursive git://github.com/kriansa/fuel-less.git
