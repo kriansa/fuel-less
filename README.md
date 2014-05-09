@@ -12,7 +12,7 @@ More about *lessphp*: **http://leafo.net/lessphp**
 
 Simply add the following to your composer.json require block:
 
-	'leafo/lessphp'
+	'oyejorge/less.php'
 
 Clone from Github. Put it on `'packages_dir/less'` dir in and add to your app/config/config.php.
 

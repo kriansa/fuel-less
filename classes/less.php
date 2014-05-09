@@ -72,8 +72,9 @@ class Less
 			// Compile only if source is newer than compiled file
 			if ( ! is_file($compiled_css) or filemtime($source_less) > filemtime($compiled_css))
 			{
-				$handle = new \lessc($source_less);
-				$handle->setVariables(\Config::get('less.variables', array());
+				$less = new \Less_Parser();
+				$less->parseFile($source_less);
+				$less->ModifyVars(\Config::get('less.variables', array()));
 				
 				$compile_path = dirname($compiled_css);
 				$css_name     = pathinfo($compiled_css, PATHINFO_BASENAME);
@@ -82,7 +83,7 @@ class Less
 					mkdir($compile_path, \Config::get('file.chmod.folders', 0777), true);
 				}
 
-				\File::update($compile_path, $css_name, $handle->parse());
+				\File::update($compile_path, $css_name, $less->getCss());
 			}
 		}
 
