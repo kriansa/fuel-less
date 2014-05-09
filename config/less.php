@@ -42,6 +42,13 @@ return array(
 	'output_dir' => Config::get('asset.paths.0').Config::get('asset.css_dir'),
 	
 	/**
+	 * Custom variables to use when compiling less files.
+	 */
+	'variables' => array(
+		'asset_path' => Config::get('asset.paths.0'),
+	),
+	
+	/**
 	 * Default path key for assets if using Casset.
 	 */
 	'casset_path_key' => false,
